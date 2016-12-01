@@ -9,10 +9,20 @@ import  os
 sparkConf = SparkConf().setAppName("WordCounts").setMaster("local")
 sc = SparkContext(conf = sparkConf)
  # The WordCounts Spark program
-file_path="file:///C:/SOFT/JOB/PySpark/ml-100k/"
-rating_data = sc.textFile(file_path+"u.data")
-print rating_data.first()
+file_path="file:///E:/spark/learn/ml-100k/"
+rating_data = sc.textFile(file_path+"u.data").map(lambda line :line.split("\t"))
 num_rating=rating_data.count()
+print rating_data.first()
 print "Rating:%d" % num_rating
-sc.stop()
+
+ratings =rating_data.map(lambda fields:int(fields[2]))
+max_ratings=ratings.reduce(lambda x,y:max(x,y))
+min_ratings=ratings.reduce(lambda x,y:min(x,y))
+
+
+
+
+
+
+
 
