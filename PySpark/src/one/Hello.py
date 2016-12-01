@@ -19,7 +19,9 @@ ratings =rating_data.map(lambda fields:int(fields[2]))
 max_ratings=ratings.reduce(lambda x,y:max(x,y))
 min_ratings=ratings.reduce(lambda x,y:min(x,y))
 
+mean_ratings=ratings.reduce(lambda x,y:x+y)/num_rating
 
+print "mean_ratings:%2.2f  max:%d  min:%d" % (mean_ratings,max_ratings,min_ratings )
 
 
 
