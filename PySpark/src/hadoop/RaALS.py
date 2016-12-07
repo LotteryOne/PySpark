@@ -108,3 +108,21 @@ def avgPrecisionK(actual, predicted, k):
         return score/min(len(actual),k)
 
 topKRecs=topPredict   
+
+
+actualMovies = [rating.product for rating in moviesForUser[0]]
+predictMovies = [rating.product for rating in topKRecs]
+print '实际的电影：',actualMovies
+print '预测的电影：',predictMovies
+
+MAP10 = avgPrecisionK(actualMovies,predictMovies,10)
+print MAP10
+
+itemFactors = model.productFeatures().map(lambda (id,factor):factor).collect()
+itemMatrix = np.array(itemFactors)
+print itemMatrix
+print itemMatrix.shape
+
+imBroadcast = sc.broadcast(itemMatrix)
+#    fd = _os.open(file, flags, 0600)
+# SError: [Errno 2] No such file or directory
